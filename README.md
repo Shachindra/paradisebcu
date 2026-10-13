@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paradise | Brigade Cornerstone Utopia
 
-## Getting Started
+Residents' site for Paradise at Brigade Cornerstone Utopia, Varthur, Bengaluru. It is a static Next.js site, built with pnpm, for GitHub Pages.
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Edit the site
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Notices, home sizes, amenities, emergency lines, and association contact details live in [`src/content/site.ts`](src/content/site.ts).
 
-## Learn More
+- Set `associationEmail` and `associationPhone` before the contact form and directory show a real address.
+- Replace the sample notices. Each sample has `sample: true`. Remove that flag on a real circular.
+- The logo is [`src/assets/logo.png`](src/assets/logo.png). The browser icon is [`src/app/icon.png`](src/app/icon.png).
 
-To learn more about Next.js, take a look at the following resources:
+## Build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The static site is written to `out/`. `output: 'export'` is set so GitHub Pages can host the files without a Node server. Image optimization is off for the same reason.
 
-## Deploy on Vercel
+A project site is served from `/<repository>/`. The Pages workflow sets that prefix from `actions/configure-pages`. Local `pnpm dev` and `pnpm build` leave the prefix empty, so the site stays at `/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## GitHub Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push the repository to GitHub.
+2. In **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push to `main`. The workflow [`.github/workflows/pages.yml`](.github/workflows/pages.yml) builds `out/` and deploys it.
+
+Trailing slashes are on, so each route is a folder with `index.html`. That matches how GitHub Pages serves clean URLs.
